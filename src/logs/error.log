@@ -1,0 +1,1 @@
+{"error":"password authentication failed for user \"test\"","level":"error","message":"Error on connecting database","stack":"error: password authentication failed for user \"test\"\n    at D:\\Express Starter Node\\node_modules\\pg-pool\\index.js:45:11\n    at processTicksAndRejections (node:internal/process/task_queues:95:5)","timestamp":"2025-28-03 16:28"}
