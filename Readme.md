@@ -1,7 +1,5 @@
 ## Express app
 
-Starter repo for node express postgres project with typescript project to start project.
-
-MVC Pattern (Different layers)
+Node Typescript Postgres project with repository, MVC design.
 
 `npm run dev`
