@@ -9,14 +9,18 @@ const pool = new pg.Pool({
   password: config.db.password,
   port: Number(config.db.port),
   idleTimeoutMillis: 30000,
-  // connectionTimeoutMillis: 2000,
+  connectionTimeoutMillis: 2000,
   max: 10,
 });
 
 const handleErrorLog = (errorMessage: string, error: any) => {
   if (error instanceof Error) {
-    logger.error(errorMessage, { error: error.message, stack: error.stack }, error);
-    console.log(error)
+    logger.error(
+      errorMessage,
+      { error: error.message, stack: error.stack },
+      error
+    );
+    console.log(error);
   } else {
     logger.error(errorMessage, { error: 'Unknown error occur' });
   }
@@ -43,8 +47,9 @@ export const disconnectDb = async () => {
 export const queryDb = async (query: string, values: any[] = []) => {
   try {
     const response = await pool.query(query, values);
-    return response;
+    return response
   } catch (error) {
     handleErrorLog('Error querying database', error);
+    throw error;
   }
 };

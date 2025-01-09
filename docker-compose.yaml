@@ -2,30 +2,30 @@ version: '3.8'
 name: backend-app
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '${PORT}:${PORT}'
-    depends_on:
-      - db
-    environment:
-      - NODE_ENV=${NODE_ENV}
-      - DB_HOST=${DB_HOST}
-      - DB_PORT=${DB_PORT}
-      - DB_NAME=${DB_NAME}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_TYPE=${DB_TYPE}
-    volumes:
-      - logs:/app/src/logs
-    healthcheck:
-      test: ['CMD', 'curl', '-f', 'http://localhost:${PORT}/health']
-      interval: 60s
-      timeout: 10s
-      retries: 3
-    container_name: nodeapp
+  # app:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   ports:
+  #     - '${PORT}:${PORT}'
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     - NODE_ENV=${NODE_ENV}
+  #     - DB_HOST=${DB_HOST}
+  #     - DB_PORT=${DB_PORT}
+  #     - DB_NAME=${DB_NAME}
+  #     - DB_USER=${DB_USER}
+  #     - DB_PASSWORD=${DB_PASSWORD}
+  #     - DB_TYPE=${DB_TYPE}
+  #   volumes:
+  #     - logs:/app/src/logs
+  #   healthcheck:
+  #     test: ['CMD', 'curl', '-f', 'http://localhost:${PORT}/health']
+  #     interval: 60s
+  #     timeout: 10s
+  #     retries: 3
+  #   container_name: nodeapp
 
   db:
     image: postgres
@@ -38,7 +38,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     container_name: database
-    
+
 volumes:
   postgres_data:
   logs:
