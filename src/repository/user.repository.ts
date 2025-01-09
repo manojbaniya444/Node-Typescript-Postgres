@@ -1,7 +1,15 @@
 import { IUser, User } from '../models/user.model';
 import { BaseRepository } from './base.repository';
 
-export class UserRepository extends BaseRepository {
+interface IUserRepository {
+  findById(id: number): Promise<User | null>;
+  findByEmail(email: string): Promise<User | null>;
+  update(id: number, userData: Partial<IUser>): Promise<User>;
+  createUser(userData: Partial<IUser>): Promise<User>;
+  findAll(): Promise<User[] | null>;
+}
+
+export class UserRepository extends BaseRepository implements IUserRepository {
   async findById(id: number): Promise<User | null> {
     try {
       const query = 'SELECT * FROM users WHERE id = $1';

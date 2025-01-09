@@ -12,13 +12,13 @@ export const logger = winston.createLogger({
   format: logFormat,
   transports: [
     new winston.transports.File({
-      filename: 'src/logs/error.log',
+      filename: './logs/error.log',
       level: 'error',
       maxsize: 5 * 1024 * 1024,
       maxFiles: 5,
     }),
     new winston.transports.File({
-      filename: `src/logs/${config.logging.logFilename}`,
+      filename: `./logs/${config.logging.logFilename}`,
       maxsize: 5 * 1024 * 1024,
       maxFiles: 5,
     }),

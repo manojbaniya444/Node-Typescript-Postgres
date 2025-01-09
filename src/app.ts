@@ -1,10 +1,11 @@
 import { logger } from './utils/logger';
-import { errorHandler, limiter } from './middlewares';
+import { errorHandler, limiter, notFoundMiddleware } from './middlewares';
 import { config } from './config/env.config';
 
 import cors from 'cors';
 import express, { Request, Response, NextFunction } from 'express';
 import compression from 'compression';
+import userRouter from './routes/user.route';
 
 const app = express();
 
@@ -15,7 +16,6 @@ app.use(
 );
 app.use(express.json());
 app.use(compression());
-app.use('/api', limiter);
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info({
     method: req.method,
@@ -25,13 +25,12 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   });
   next();
 });
-
 app.get('/health', (req: Request, res: Response) => {
   return res.status(200).json({ status: 'Healthy' });
 });
+app.use('/api/user', limiter, userRouter);
 
-// define other api endpoints...
-
+app.use(notFoundMiddleware);
 app.use(errorHandler);
 
 export { app };

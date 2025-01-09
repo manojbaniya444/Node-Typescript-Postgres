@@ -6,11 +6,11 @@ import { config } from '../config/env.config';
 export class UserService {
   private userRepository: UserRepository;
 
-  constructor() {
-    this.userRepository = new UserRepository();
+  constructor(userRepository: UserRepository) {
+    this.userRepository = userRepository;
   }
 
-    async register(
+  async register(
     userData: Partial<IUser>
   ): Promise<{ user: User; token: string }> {
     // validate input
@@ -46,6 +46,7 @@ export class UserService {
     password: string
   ): Promise<{ user: User; token: string }> {
     // check to see the user is there or not
+    // console.log(email, password)
     const user = await this.userRepository.findByEmail(email);
 
     // if not user throw error
